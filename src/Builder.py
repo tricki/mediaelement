@@ -4,7 +4,7 @@ import shutil
 import re
 
 def remove_console(text):
-	return re.sub('console.(log|debug)\((.*)\);?', '', text) 
+	return re.sub('console.(log|debug)\((.*)\);?', '', text)
 
 me_filename = 'mediaelement'
 mep_filename = 'mediaelementplayer'
@@ -28,12 +28,12 @@ me_files.append('me-i18n-locale-zh.js')
 code = ''
 
 for item in me_files:
-	src_file = open('js/' + item,'r')
+	src_file = open('js/' + item, encoding='utf-8', mode='r')
 	code += src_file.read() + "\n"
-	
+
 code = remove_console(code)
 
-tmp_file = open('../build/' + me_filename + '.js','w')
+tmp_file = open('../build/' + me_filename + '.js', encoding='utf-8', mode='w')
 tmp_file.write(code)
 tmp_file.close()
 
@@ -57,12 +57,12 @@ mep_files.append('mep-feature-postroll.js')
 code = ''
 
 for item in mep_files:
-    src_file = open('js/' + item,'r')
+    src_file = open('js/' + item, encoding='utf-8', mode='r')
     code += src_file.read() + "\n"
-        
+
 code = remove_console(code)
 
-tmp_file = open('../build/' + mep_filename + '.js','w')
+tmp_file = open('../build/' + mep_filename + '.js', encoding='utf-8', mode='w')
 tmp_file.write(code)
 tmp_file.close()
 
@@ -88,12 +88,12 @@ def addHeader(headerFilename, filename):
 	tmp_file.close()
 
 	# open the file again for writing
-	tmp_file = open(filename, 'w')
+	tmp_file = open(filename, encoding='utf-8', mode='w')
 	tmp_file.write(header_txt)
 	# write the original contents
 	tmp_file.write(file_txt)
 	tmp_file.close()
-	
+
 
 addHeader('js/me-header.js', '../build/' + me_filename + '.min.js')
 addHeader('js/mep-header.js', '../build/' + mep_filename + '.min.js')
@@ -102,30 +102,30 @@ addHeader('js/mep-header.js', '../build/' + mep_filename + '.min.js')
 # COMBINE into single script
 print('Combining scripts')
 code = ''
-src_file = open('../build/' + me_filename + '.js','r')
+src_file = open('../build/' + me_filename + '.js', encoding='utf-8', mode='r')
 code += src_file.read() + "\n"
-src_file = open('../build/' + mep_filename + '.js','r')
+src_file = open('../build/' + mep_filename + '.js', encoding='utf-8', mode='r')
 code += src_file.read() + "\n"
 
-tmp_file = open('../build/' + combined_filename + '.js','w')
+tmp_file = open('../build/' + combined_filename + '.js', encoding='utf-8', mode='w')
 tmp_file.write(code)
 tmp_file.close()
 
 code = ''
-src_file = open('../build/' + me_filename + '.min.js','r')
+src_file = open('../build/' + me_filename + '.min.js', encoding='utf-8', mode='r')
 code += src_file.read() + "\n"
-src_file = open('../build/' + mep_filename + '.min.js','r')
+src_file = open('../build/' + mep_filename + '.min.js', encoding='utf-8', mode='r')
 code += src_file.read() + "\n"
 
-tmp_file = open('../build/' + combined_filename + '.min.js','w')
+tmp_file = open('../build/' + combined_filename + '.min.js', encoding='utf-8', mode='w')
 tmp_file.write(code)
 tmp_file.close()
 
 
 # MINIFY CSS
 print('Minifying CSS')
-src_file = open('css/mediaelementplayer.css','r')
-tmp_file = open('../build/mediaelementplayer.css','w')
+src_file = open('css/mediaelementplayer.css', encoding='utf-8', mode='r')
+tmp_file = open('../build/mediaelementplayer.css', encoding='utf-8', mode='w')
 tmp_file.write(src_file.read())
 tmp_file.close()
 os.system("java -jar yuicompressor-2.4.2.jar ../build/mediaelementplayer.css -o ../build/mediaelementplayer.min.css --charset utf-8 -v")
